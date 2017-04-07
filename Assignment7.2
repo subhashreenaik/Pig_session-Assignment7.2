@@ -1,0 +1,18 @@
+a.  A = load 'employee_datails.txt' using PigStorage(',')as(num:int,name:chararray,num1:int,num2:int);
+out = ORDER A by num2 DESC;
+limA = Limit out 5;
+dump limA;
+
+b. A = load 'employee_datails.txt' using PigStorage(',')as(num:int,name:chararray,num1:int,num2:int);
+out = ORDER A by num1 DESC;
+filA = Filter out by num % 2 == 1;
+dump filA;
+lim = Limit filA 3;
+dump lim;
+
+
+c. B = load 'employee_expenses.txt' using PigStorage('\t')as(num1:int,num2:int);
+out = ORDER B by num2 DESC;
+joinAB = JOIN A by num,B by num1;
+ord1 = ORDER joinAB by out::num2 DESC;
+dump ord1;
